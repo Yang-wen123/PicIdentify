@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">图像识别-个人版</string>
+    <string name="lab">图像识别</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="settings">设置</string>
+    <string name="Exit">退出</string>
+    <string name="introduction">使用手册</string>
+    <string name="plant_iden">植物识别</string>
+    <string name="animal_iden">动物识别</string>
+    <string name="general_iden">通用识别</string>
+    <string name="car_iden">车型识别</string>
+    <string name="cook_iden">菜品识别</string>
+    <string name="logo_iden">商标识别</string>
+    <string name="coin_iden">货币识别</string>
+    <string name="history">历史记录</string>
+    <string name="my_history">足迹</string>
+    <string name="collection">收藏</string>
+    <string name="wonderful">精彩呈现</string>
+    <string name="more">更多内容</string>
+</resources>

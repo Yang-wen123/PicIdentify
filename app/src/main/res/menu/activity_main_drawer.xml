@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view">
+
+    <item android:title="精彩呈现">
+    <menu>
+        <item
+                android:id="@+id/generalidentify"
+                android:icon="@drawable/generalbar"
+                android:title="@string/general_iden"/>
+        <item
+                android:id="@+id/plantidentify"
+                android:icon="@drawable/plantbar"
+                android:title="@string/plant_iden"/>
+        <item
+                android:id="@+id/animalidentify"
+                android:icon="@drawable/animalbar"
+                android:title="@string/animal_iden"/>
+        <item
+                android:id="@+id/caridentify"
+                android:icon="@drawable/carbar"
+                android:title="@string/car_iden"/>
+        <item
+                android:id="@+id/cookidentify"
+                android:icon="@drawable/cookbar"
+                android:title="@string/cook_iden"/>
+    </menu>
+    </item>
+    <item android:title="@string/history">
+        <menu>
+            <item
+                    android:id="@+id/history"
+                    android:icon="@drawable/historybar"
+                    android:title="@string/my_history"/>
+            <item
+                    android:id="@+id/collection"
+                    android:icon="@drawable/collectionbar"
+                    android:title="@string/collection"/>
+        </menu>
+    </item>
+    <item android:title="@string/more">
+        <menu>
+            <item
+                    android:id="@+id/logoidentify"
+                    android:icon="@drawable/logobar"
+                    android:title="@string/logo_iden"/>
+            <item
+                    android:id="@+id/coinidentify"
+                    android:icon="@drawable/coinbar"
+                    android:title="@string/coin_iden"/>
+        </menu>
+    </item>
+
+
+</menu>
