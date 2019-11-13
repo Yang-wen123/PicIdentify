@@ -19,13 +19,25 @@
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay"/>
         <TextView
+                android:id="@+id/warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FEC7DE"
+                android:padding="10dp"
+                android:textColor="#000"
+                android:text="@string/net"
+                android:visibility="gone"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#2000"></View>
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/general_iden"
                 android:id="@+id/textview"
                 android:textColor="@android:color/holo_green_dark"
-                android:textSize="30dp">
-
+                android:textSize="30sp">
         </TextView>
     </com.google.android.material.appbar.AppBarLayout>
 

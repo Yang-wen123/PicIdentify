@@ -1,26 +1,24 @@
 package com.example.left;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.FileProvider;
-import com.baidu.aip.imageclassify.AipImageClassify;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
@@ -28,19 +26,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+    private IntentFilter intentFilter;
+    private NetworkChangeReceiver networkChangeReceiver;
     private int id=0;
-
+    ShowDialog showDialog=new ShowDialog(this,this);
     ReadAndTake readandtake =new ReadAndTake();
     GeneralIdentify generalIdentify=new GeneralIdentify(this);
     PlantIdentify plantIdentify=new PlantIdentify(this);
@@ -53,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
         //初始化菜单栏，新版按钮，侧边栏界面，侧边栏事件及设置监听
         APPInfo.bitmap=null;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -68,12 +62,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(networkChangeReceiver); //注销广播
+    }
+    //定义一个判断网络的广播  在网络连接或断开时，都会执行一次
+    class NetworkChangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isAvailable()) {
+                Toast.makeText(context, APPInfo.isopen,Toast.LENGTH_SHORT).show();
+                APPInfo.tv.setVisibility(View.GONE);
+            }
+            else {
+                APPInfo.tv.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
+
     private void initView() {
         FloatingActionButton gallery_fab = (FloatingActionButton) findViewById(R.id.gallery_fab);
         FloatingActionButton graph_fab = (FloatingActionButton) findViewById(R.id.graph_fab);
         FloatingActionButton identify_fab = (FloatingActionButton) findViewById(R.id.identify_fab);
         APPInfo.imageView= (ImageView) findViewById(R.id.initimage);
         APPInfo.textview=(TextView)findViewById(R.id.textview);
+        APPInfo.tv=findViewById(R.id.warning);
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        networkChangeReceiver = new NetworkChangeReceiver();
+        registerReceiver(networkChangeReceiver,intentFilter); //注册广播接收器
+
         gallery_fab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,13 +181,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
+    //更换头像
+    public void headclick(View view){
+        showDialog.ShowDialog(view);
+    }
     //侧边栏事件监听
     @SuppressLint("SetTextI18n")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.generalidentify:
-                id=0;APPInfo.iscommon=1;
+                id=0;APPInfo.iscommon=1;//标记摄像头和识别按钮
                 APPInfo.textview.setText(APPInfo.GeneralIden);
                 APPInfo.textview.setTextColor(0xda5894af);
                 APPInfo.imageView.setBackgroundResource(R.drawable.generallay);
@@ -239,49 +268,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void headclick(View view){
-        ShowDialog(view);
-    }
-    public void ShowDialog(View view){
-        final Dialog dialog = new Dialog(this, R.style.DialogTheme);        //填充对话框的布局
-        View inflate = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null);        //初始化控件
-        APPInfo.cam = (TextView) inflate.findViewById(R.id.cam);
-        APPInfo.pic = (TextView) inflate.findViewById(R.id.pic);
-        APPInfo.cancel = (TextView) inflate.findViewById(R.id.cancel);
-        APPInfo.cam.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                readandtake.TakePhoto(MainActivity.this,MainActivity.this);
-                dialog.dismiss();
-                APPInfo.iscommon=0;
-            }
-        });
-        APPInfo.pic.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                readandtake.ReadPhoto(MainActivity.this,MainActivity.this);
-                dialog.dismiss();
-                APPInfo.iscommon=0;
-            }
-        });
-        APPInfo.cancel.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        //将布局设置给Dialog
-        dialog.setContentView(inflate);
-        //获取当前Activity所在的窗体
-        Window dialogWindow = dialog.getWindow();
-        //设置Dialog从窗体底部弹出
-        dialogWindow.setGravity(Gravity.BOTTOM);
-        //获得窗体的属性
-        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
-        lp.y = 100;//设置Dialog距离底部的距离//将属性设置给窗体
-        dialogWindow.setAttributes(lp);
-        dialog.show();
-    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

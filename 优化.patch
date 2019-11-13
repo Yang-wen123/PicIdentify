@@ -1,0 +1,90 @@
+Index: app/src/main/java/com/example/left/ShowDialog.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/left/ShowDialog.java	(date 1573486616579)
++++ app/src/main/java/com/example/left/ShowDialog.java	(date 1573486616579)
+@@ -0,0 +1,57 @@
++package com.example.left;
++
++import android.app.Activity;
++import android.app.Dialog;
++import android.content.Context;
++import android.view.*;
++import android.widget.TextView;
++
++public class ShowDialog {
++    private final Activity activity;
++    ReadAndTake readandtake =new ReadAndTake();
++    Context context;
++    public ShowDialog(Context context, Activity activity){
++        this.context=context;
++        this.activity=activity;
++    }
++    public void ShowDialog(View view){
++        final Dialog dialog = new Dialog(context, R.style.DialogTheme);        //填充对话框的布局
++        View inflate = LayoutInflater.from(context).inflate(R.layout.dialog_layout, null);        //初始化控件
++        APPInfo.cam = (TextView) inflate.findViewById(R.id.cam);
++        APPInfo.pic = (TextView) inflate.findViewById(R.id.pic);
++        APPInfo.cancel = (TextView) inflate.findViewById(R.id.cancel);
++        APPInfo.cam.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                readandtake.TakePhoto(context,activity);
++                dialog.dismiss();
++                APPInfo.iscommon=0;
++            }
++        });
++        APPInfo.pic.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                readandtake.ReadPhoto(context,activity);
++                dialog.dismiss();
++                APPInfo.iscommon=0;
++            }
++        });
++        APPInfo.cancel.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View v) {
++                dialog.dismiss();
++            }
++        });
++        //将布局设置给Dialog
++        dialog.setContentView(inflate);
++        //获取当前Activity所在的窗体
++        Window dialogWindow = dialog.getWindow();
++        //设置Dialog从窗体底部弹出
++        dialogWindow.setGravity(Gravity.BOTTOM);
++        //获得窗体的属性
++        WindowManager.LayoutParams lp = dialogWindow.getAttributes();
++        lp.y = 100;//设置Dialog距离底部的距离//将属性设置给窗体
++        dialogWindow.setAttributes(lp);
++        dialog.show();
++    }
++}
+Index: app/src/main/java/com/example/left/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/left/MainActivity.java	(date 1573484523000)
++++ app/src/main/java/com/example/left/MainActivity.java	(date 1573486617030)
+@@ -40,7 +40,7 @@
+ public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+ 
+     private int id=0;
+-
++    ShowDialog showDialog=new ShowDialog(this,this);
+     ReadAndTake readandtake =new ReadAndTake();
+     GeneralIdentify generalIdentify=new GeneralIdentify(this);
+     PlantIdentify plantIdentify=new PlantIdentify(this);
+@@ -240,7 +240,7 @@
+         return true;
+     }
+     public void headclick(View view){
+-        ShowDialog(view);
++        showDialog.ShowDialog(view);
+     }
+     public void ShowDialog(View view){
+         final Dialog dialog = new Dialog(this, R.style.DialogTheme);        //填充对话框的布局

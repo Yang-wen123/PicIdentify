@@ -31,6 +31,8 @@ public class APPInfo {
     public static int iscommon = 1;         //头像和主界面标签的识别码
     public static String index = "";		//	作为拍照还是相册的标识
     public static String info = "";		//	uri变成字符串
+    public static TextView tv;
+
     //中文
     public static String Use="使用指南";
     public static String UseIntroduction = "此软件通过从本地读取图库和摄像头拍摄来对图片进行识别，" +
@@ -54,4 +56,5 @@ public class APPInfo {
     public static String NeverUse="您还未曾使用过此软件";
     public static String Personal="此软件为个人版，暂不支持访问历史记录，点击返回即可退出该界面";
     public static String Personalcollection="此软件为个人版，暂不支持收藏图片，点击返回即可退出该界面";
+    public static String isopen="网络已打开";
 }

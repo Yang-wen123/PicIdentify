@@ -1,7 +1,9 @@
 package com.example.left;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Handler;
@@ -81,6 +83,7 @@ public class GeneralIdentify {
         }
     }
     //通用场景识别、匿名Handler子类
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
