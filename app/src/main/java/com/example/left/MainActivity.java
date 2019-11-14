@@ -16,15 +16,11 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import java.io.FileNotFoundException;
 import java.util.Objects;
@@ -36,13 +32,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private int id=0;
     ShowDialog showDialog=new ShowDialog(this,this);
     ReadAndTake readandtake =new ReadAndTake();
-    GeneralIdentify generalIdentify=new GeneralIdentify(this);
-    PlantIdentify plantIdentify=new PlantIdentify(this);
-    AnimalIdentify animalIdentify=new AnimalIdentify(this);
-    CarIdentify carIdentify=new CarIdentify(this);
-    CookIdentify cookIdentify=new CookIdentify(this);
-    LogoIdentify logoIdentify=new LogoIdentify(this);
-    CoinIdentify coinIdentify=new CoinIdentify(this);
+    Identify identify =new Identify(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +66,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             if (networkInfo != null && networkInfo.isAvailable()) {
                 Toast.makeText(context, APPInfo.isopen,Toast.LENGTH_SHORT).show();
                 APPInfo.tv.setVisibility(View.GONE);
+                APPInfo.netid=1;
             }
             else {
                 APPInfo.tv.setVisibility(View.VISIBLE);
+                APPInfo.netid=0;
             }
         }
     }
@@ -93,6 +85,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         FloatingActionButton identify_fab = (FloatingActionButton) findViewById(R.id.identify_fab);
         APPInfo.imageView= (ImageView) findViewById(R.id.initimage);
         APPInfo.textview=(TextView)findViewById(R.id.textview);
+
         APPInfo.tv=findViewById(R.id.warning);
         intentFilter = new IntentFilter();
         intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
@@ -123,25 +116,25 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void IdentifyPhoto(int id) {
         switch (id){
             case 0:
-                generalIdentify.Generalidentify();
+                identify.Generalidentify();
                 break;
             case 1:
-                plantIdentify.Plantidentify();
+                identify.Plantidentify();
                 break;
             case 2:
-                animalIdentify.Animalidentify();
+                identify.Animalidentify();
                 break;
             case 3:
-                carIdentify.Caridentify();
+                identify.Caridentify();
                 break;
             case 4:
-                cookIdentify.Cookidentify();
+                identify.Cookidentify();
                 break;
             case 5:
-                logoIdentify.Logoidentify();
+                identify.Logoidentify();
                 break;
             case 6:
-                coinIdentify.Coinidentify();
+                identify.Coinidentify();
                 break;
         }
     }
@@ -169,7 +162,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.settings:
-                Toast.makeText(this, "暂无设置选项", Toast.LENGTH_SHORT).show();
+                if(APPInfo.daynight==1){
+                    APPInfo.daynight =0;
+                    setEnableNightMode(true);//日间-->夜间
+                }else {
+                    APPInfo.daynight =1;
+                    setEnableNightMode(false);//夜间-->日间
+                }
                 break;
             case R.id.Exit:
                 finish();

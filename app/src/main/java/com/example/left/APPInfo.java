@@ -16,6 +16,8 @@ public class APPInfo {
     public static final int TAKE_PHOTO=2;
     //设置MIME码：表示image所有格式的文件均可
     public static final String IMAGE_TYPE="image/*";
+    public static int daynight=1;       //标记日间/夜间模式,1为日间，0为夜间
+    public static int netid=1;          //1有网，0没网
 
     //初始化属性
     public static Uri ImageUri;
@@ -57,4 +59,6 @@ public class APPInfo {
     public static String Personal="此软件为个人版，暂不支持访问历史记录，点击返回即可退出该界面";
     public static String Personalcollection="此软件为个人版，暂不支持收藏图片，点击返回即可退出该界面";
     public static String isopen="网络已打开";
+    public static String dialogtitle="识别结果";
+    public static String dialogmsg="未知";
 }
