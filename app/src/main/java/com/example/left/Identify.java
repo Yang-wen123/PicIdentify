@@ -905,6 +905,7 @@ public class Identify implements TextToSpeech.OnInitListener {
         APPInfo.mAnimation.setInterpolator(new LinearInterpolator());
         APPInfo.mAnimation.setFillAfter(true);
         APPInfo.mAnimation.setFillBefore(true);
+
     }
     @Override
     public void onInit(int status) {
