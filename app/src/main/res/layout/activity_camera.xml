@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:id="@+id/constraintLayout1"
+        android:layout_height="match_parent"
+        android:background="#000">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="540dp"
+                android:id="@+id/constraintLayout"
+                tools:ignore="MissingConstraints">
+            <SurfaceView
+                    android:id="@+id/surfaceView"
+                    android:layout_width="match_parent"
+                    android:layout_height="540dp"
+                    tools:ignore="MissingConstraints" tools:layout_editor_absoluteY="0dp" tools:layout_editor_absoluteX="0dp"/>
+            <TextView
+                    android:id="@+id/textview"
+                    android:textSize="25sp"
+                    android:background="#00000000"
+                    android:text=""
+                    android:scrollbars="vertical"
+                    android:textColor="@android:color/background_light"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+            </TextView>
+            <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/rorate"
+                    android:layout_width="4dp"
+                    android:background="#FF5123"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="@id/constraintLayout"
+                    app:layout_constraintStart_toStartOf="@id/constraintLayout"
+            >
+            </ImageView>
+            <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/rorate2"
+                    android:layout_width="match_parent"
+                    android:background="#FF5123"
+                    android:layout_height="4dp"
+                    app:layout_constraintBottom_toBottomOf="@id/constraintLayout"
+                    app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+                    tools:layout_editor_absoluteX="0dp">
+            </ImageView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+                android:id="@+id/btnTakePhoto"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:text="拍照" tools:ignore="NotSibling"
+                android:background="@drawable/ic_android_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/constraintLayout1"
+                app:layout_constraintEnd_toEndOf="@id/constraintLayout1"
+                app:layout_constraintStart_toStartOf="@id/constraintLayout1"
+                app:layout_constraintTop_toTopOf="@id/surfaceView"
+                app:layout_constraintVertical_bias="0.97"
+        />
+        <Button
+                android:id="@+id/btnSwitch"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:text="切换" tools:ignore="NotSibling"
+                android:background="@drawable/ic_android_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/constraintLayout1"
+                app:layout_constraintEnd_toEndOf="@id/constraintLayout1"
+                app:layout_constraintTop_toTopOf="@id/surfaceView"
+                app:layout_constraintVertical_bias="0.97"
+        />
+        <Button
+                android:id="@+id/liveidentify"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:text="识别" tools:ignore="NotSibling"
+                android:background="@drawable/ic_android_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@id/constraintLayout1"
+                app:layout_constraintStart_toStartOf="@id/constraintLayout1"
+                app:layout_constraintTop_toTopOf="@id/surfaceView"
+                app:layout_constraintVertical_bias="0.97"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

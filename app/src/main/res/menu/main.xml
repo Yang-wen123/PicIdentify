@@ -13,4 +13,14 @@
           android:title="@string/introduction"
           android:orderInCategory="100"
           app:showAsAction="never"/>
+    <item android:id="@+id/hist"
+          android:orderInCategory="100"
+          app:showAsAction="ifRoom"
+          android:icon="@drawable/historybar2"
+          android:title=""/>
+    <item android:id="@+id/live_identify"
+          android:title="@string/live_identify"
+          android:orderInCategory="100"
+          app:showAsAction="ifRoom"/>
+
 </menu>

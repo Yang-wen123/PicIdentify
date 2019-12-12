@@ -32,6 +32,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
     protected abstract int getContentView();
 
     protected void ts(String msg){

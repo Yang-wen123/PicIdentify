@@ -6,9 +6,10 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="settings">切换夜间/日间模式</string>
+    <string name="settings">模式</string>
     <string name="Exit">退出</string>
     <string name="introduction">使用手册</string>
+    <string name="live_identify">实时识别模式</string>
     <string name="plant_iden">植物识别</string>
     <string name="animal_iden">动物识别</string>
     <string name="general_iden">通用识别</string>

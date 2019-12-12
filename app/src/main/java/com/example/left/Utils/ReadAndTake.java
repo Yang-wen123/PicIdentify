@@ -1,4 +1,4 @@
-package com.example.left;
+package com.example.left.Utils;
 
 import android.Manifest;
 import android.app.Activity;
@@ -10,6 +10,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
+import com.example.left.APPInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class ReadAndTake {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
         }
         Intent intent=new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,APPInfo.IMAGE_TYPE);
+        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, APPInfo.IMAGE_TYPE);
         activity.startActivityForResult(intent,APPInfo.RESULT_IMAGE);
         APPInfo.iscommon=1;
     }

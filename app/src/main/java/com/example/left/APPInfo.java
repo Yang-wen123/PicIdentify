@@ -2,8 +2,11 @@ package com.example.left;
 
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.left.Utils.CircleView;
 
 public class APPInfo {
     //id、ak、sk在百度ai创建应用获取
@@ -24,17 +27,27 @@ public class APPInfo {
     public static ImageView imageView;      //主界面 initimage
     public static String str;                               //图片名
     public static String imageyear="yyyy年MM月dd日HH:mm:ss";//图片保存命名格式
-    public static ImageView headview;       //头像
-    public static TextView textview;        //主界面text
+    public static CircleView headview;       //头像
     public static Bitmap bitmap;            //主界面bitmap
     public static Bitmap headbitmap;        //头像的bitmap
+    public static TextView nickname,signature;//昵称、签名
     public static String imagePath=null;    //图片路径
     public static TextView cam,pic,cancel;  //更换头像对话框的实例化对象
     public static int iscommon = 1;         //头像和主界面标签的识别码
     public static String index = "";		//	作为拍照还是相册的标识
     public static String info = "";		//	uri变成字符串
     public static TextView tv;
-
+    static TranslateAnimation mAnimation;//动画
+    public static View mViewHorizontal; //水平线条
+    public static String str1;  //图片转二进制的字符串
+    public static String layoutpos;  //图片转二进制的字符串
+    public static int pos=0;    //收藏记录的item位置
+    public static int toppos=0;//置顶的item
+    public static boolean layoutdialog=false;//判断layout和listview
+    public static TextView texttop;  //文件名
+    public static String imagetop;  //文件图
+    public static String collectionid;//删除收藏的标签
+    public static String historyid;//历史记录的标签
     //中文
     public static String Use="使用指南";
     public static String UseIntroduction = "此软件通过从本地读取图库和摄像头拍摄来对图片进行识别，" +
@@ -56,8 +69,6 @@ public class APPInfo {
     public static String LogoIden="商标识别";
     public static String CoinIden="货币识别";
     public static String NeverUse="您还未曾使用过此软件";
-    public static String Personal="此软件为个人版，暂不支持访问历史记录，点击返回即可退出该界面";
-    public static String Personalcollection="此软件为个人版，暂不支持收藏图片，点击返回即可退出该界面";
     public static String isopen="网络已打开";
     public static String dialogtitle="识别结果";
     public static String dialogmsg="未知";

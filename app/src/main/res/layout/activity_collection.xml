@@ -3,10 +3,27 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
+    <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/toplayout"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="110dp" android:background="@android:color/darker_gray">
+        <ImageView
+                android:id="@+id/topimage"
+                android:layout_width="100dp"
+                android:layout_height="100dp">
+        </ImageView>
+        <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/toptext"
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+        </TextView>
+    </LinearLayout>
     <ListView
             android:id="@+id/collist"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
     </ListView>
 </LinearLayout>
