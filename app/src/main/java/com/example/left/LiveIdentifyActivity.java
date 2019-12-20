@@ -155,23 +155,20 @@ public class LiveIdentifyActivity extends Activity {
                         @Override
                         public void run() {
                             byte[] content = getBB.getBitmapByte(bitmap);
-                            //获取Acess_token
                             aipImageClassify = new AipImageClassify(APPInfo.APP_ID, APPInfo.API_KEY, APPInfo.SECRET_KEY);
                             aipImageClassify.setConnectionTimeoutInMillis(2000);
                             aipImageClassify.setSocketTimeoutInMillis(6000);
                             HashMap<String, String> options = new HashMap<String, String>();
-                            options.put("baike_num", "5");//请求http
+                            options.put("baike_num", "5");
                             JSONObject res = aipImageClassify.advancedGeneral(content, options);
                             try {
                                 JSONArray jsonArray = new JSONArray(res.optString("result"));
                                 name=jsonArray.optJSONObject(0).optString("root");
                                 score=jsonArray.optJSONObject(0).optString("score");
                                 description=jsonArray.optJSONObject(0).getJSONObject("baike_info").optString("description");
-                                // baike_url = jsonArray.optJSONObject(0).getJSONObject("baike_info").optString("baike_url");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            //子线程发送数据
                             int UPDATE_TEXT=1;
                             Message message = new Message();
                             message.what = UPDATE_TEXT;
@@ -180,7 +177,7 @@ public class LiveIdentifyActivity extends Activity {
                     }).start();
                     t.cancel();
                 }
-            }, 5000);
+            }, 3000);//等待图片获取
         }
     }
     @SuppressLint("HandlerLeak")
@@ -188,14 +185,18 @@ public class LiveIdentifyActivity extends Activity {
         @SuppressLint("SetTextI18n")
         @Override
         public void handleMessage(Message msg) {
-            //响应布局内容
             if(name==null&&score==null&&description==null){
                 tv.setText("网络不给力，请稍后重试");
             }else{
                 tv.setText("名称：" + name+"\n可能性：" + score+"\n介绍：" + description);
             }
-
-            generalidentify();
+            final Timer t = new Timer();
+            t.schedule(new TimerTask() {
+                public void run() {
+                    generalidentify();
+                t.cancel();
+                }
+            }, 1500);//1.5s过后继续
         }
     };
     //识别过程的动画

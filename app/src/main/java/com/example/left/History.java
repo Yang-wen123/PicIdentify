@@ -238,7 +238,14 @@ public class History extends BaseActivity implements TextToSpeech.OnInitListener
 
     @Override
     public void onInit(int status) {
-
+        if (status == TextToSpeech.SUCCESS){
+            int result = tts.setLanguage(Locale.CHINESE);
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED){
+                Toast.makeText(History.this, "播放失败", Toast.LENGTH_SHORT).show();
+            }else{
+                tts.setLanguage(Locale.US);
+            }
+        }
     }
 
 }

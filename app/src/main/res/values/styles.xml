@@ -30,7 +30,7 @@
     <!-- 遮罩层 -->
     <item name="android:backgroundDimAmount">0.5</item>
     </style>
-    !-- ToolBar菜单样式 -->
+    <!-- ToolBar菜单样式 -->
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="actionMenuTextColor">#0000</item> <!--  menu中字体颜色-->
         <item name="android:textSize">18sp</item> <!--  字体大小-->

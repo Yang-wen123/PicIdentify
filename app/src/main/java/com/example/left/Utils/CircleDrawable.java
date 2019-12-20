@@ -29,18 +29,7 @@ public class CircleDrawable extends Drawable {
         cy = size / 2;
         radius = size / 2;
     }
-    public CircleDrawable(Bitmap bitmap, Context context, int size) {
-        size = dip2px(context, size);
-        bitmap = zoomBitmap(bitmap, dip2px(context, size), dip2px(context, size));
-        this.bitmap = bitmap;
-        bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setShader(bitmapShader);
-        cx = size / 2;
-        cy = size / 2;
-        radius = size / 2;
-    }
+
     @Override
     public void draw(@NonNull Canvas canvas) {
         canvas.drawCircle(cx, cy, radius, paint);
@@ -60,18 +49,7 @@ public class CircleDrawable extends Drawable {
                 matrix, true);
         return new BitmapDrawable(null, newbmp);
     }
-    private Bitmap zoomBitmap(Bitmap bitmap, int w, int h) {
-        int width = bitmap.getWidth();
-        int height = bitmap.getHeight();
-        Bitmap oldbmp = bitmap;
-        Matrix matrix = new Matrix();
-        float scaleWidth = ((float) w / width);
-        float scaleHeight = ((float) h / height);
-        matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap newbmp = Bitmap.createBitmap(oldbmp, 0, 0, width, height,
-                matrix, true);
-        return newbmp;
-    }
+
     /**
      *  * Drawable转Bitmap
      *  * */
